@@ -1,0 +1,358 @@
+html, body {
+    width: 100%;
+    height: 100%; /* Ensure full height for the page */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Stack content and footer vertically */
+}
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: black;
+    color: white;
+    position: relative;
+}
+
+.nav-links {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 0 10px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-size: large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 5px 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Style for the active link */
+.nav-links li a.active {
+    color: #fff;
+    /* background-color: white; */
+    /* Blue background when active */
+    font-weight: bold;
+    border-radius: 5px;
+    /* Rounded corners for the active link */
+    transform: scale(1.1);
+    /* Slight scale effect for active link */
+    
+}
+
+/* Hover effect */
+.nav-links li a:hover {
+    background-color: #FA7070;
+    /* Light blue background on hover */
+    transform: scale(1.05);
+    text-decoration: underline;
+}
+
+/* Active link stays highlighted until another link is clicked */
+.nav-links li a.active:focus,
+.nav-links li a.active:hover {
+    background-color: #007bff;
+    /* Keep the active background when hovered */
+    transform: scale(1.1);
+    /* Keep the scale effect active */
+}
+
+
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-container img {
+    width: 100px;
+    /* Adjust the logo size */
+    height: 50px;
+    /* Maintains aspect ratio */
+    margin-left: -17px;
+}
+
+.menu-toggle {
+    display: none;
+    height: 100px;
+  }
+  
+  /* Hamburger Icon */
+  .menu-icon {
+    display: none;
+    width: 35px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .menu-icon div {
+    width: 100%;
+    height: 4px;
+    background-color: white;
+    border-radius: 4px;
+    transition: all 0.4s ease-in-out;
+  }
+  
+  /* Media query for screens with a max-width of 1024px */
+  @media only screen and (max-width: 1024px) {
+    .nav-links li a {
+      font-size: medium;
+    }
+  }
+  
+  /* Media query for screens with a max-width of 768px */
+  @media only screen and (max-width: 768px) {
+    .menu-icon {
+      display: flex;
+    }
+  
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      background-color: rgba(51, 51, 51, 0.95);
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: auto;
+      height: auto;
+      min-width: 200px;
+      padding: 15px;
+      border-radius: 8px;
+      z-index: 1000;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.5s ease-in-out;
+    }
+  
+    .nav-links li {
+      margin: 10px 0;
+    }
+  
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+  
+    /* Hamburger to Close (✖) Animation */
+    .menu-toggle:checked + .menu-icon div:nth-child(1) {
+      transform: translateY(10px) rotate(45deg);
+    }
+  
+    .menu-toggle:checked + .menu-icon div:nth-child(2) {
+      opacity: 0;
+    }
+  
+    .menu-toggle:checked + .menu-icon div:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+  
+    /* Slide-in Menu Animation */
+    .menu-toggle:checked + .menu-icon + .nav-links {
+      display: flex;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+  
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    /* Media query for screens with a max-width of 380px */
+    @media only screen and (max-width: 380px) {
+      .logo-container img {
+        height: 30px;
+      }
+  
+      .nav-links {
+        min-width: 150px;
+        padding: 10px;
+      }
+  
+      .nav-links li a {
+        font-size: small;
+      }
+    }
+  }
+  
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+.filters-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 20px;
+    color: #FA7070;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+}
+
+.filters select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Change color when hovered */
+select:hover {
+    background-color: white;
+}
+
+/* Change color when focused */
+select:focus {
+    outline: none;
+    border-color: black;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px 40px;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Ensures content is evenly spaced */
+    height: 95%; /* Ensures all cards have the same height */
+}
+
+/* Ensuring images are uniform */
+.product-card img {
+    width: 100%;
+    height: 200px; /* Increased height for uniformity */
+    object-fit: contain;
+}
+
+/* Ensure product name and description are uniform */
+.product-title {
+    font-size: 16px;
+    font-weight: bold;
+    min-height: 40px; /* Ensure all titles align */
+}
+
+.product-description {
+    font-size: 14px;
+    color: #666;
+    min-height: 50px; /* Ensures equal space for descriptions */
+}
+
+/* Price section uniform */
+.product-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    margin: 10px 0;
+}
+
+/* Cart button styling */
+.add-to-cart {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Ensure button takes full width */
+    margin-top: auto; /* Pushes button to the bottom */
+}
+
+/* Hover effect for the button */
+.add-to-cart:hover {
+    background-color: rgba(51, 51, 51, 0.8);
+}
+
+  
+
+footer {
+    background-color: #333;
+    /* Dark background color for the footer */
+    color: white;
+    /* White text color */
+    text-align: center;
+    /* Center the text */
+    padding: 20px;
+    /* Padding around the footer */
+    font-size: 14px;
+    /* Adjust font size */
+}
+
+footer p {
+    margin: 0;
+    /* Remove default margin from the paragraph */
+}
+
+.social-media {
+    margin-top: 10px;
+    /* Space between the copyright text and the social media links */
+}
+
+.social-media a {
+    text-decoration: none;
+    /* Remove underline from links */
+    color: white;
+    /* Set link color to white */
+    margin: 0 10px;
+    /* Space between the links */
+    font-size: 16px;
+    /* Adjust font size of social media links */
+    transition: color 0.3s ease;
+    /* Smooth transition for hover effect */
+}
+
+.social-media a:hover {
+    color: #FA7070;
+    /* Change color on hover (light red) */
+}
+
+
+
+

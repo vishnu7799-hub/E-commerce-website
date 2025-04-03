@@ -1,0 +1,502 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: black;
+    color: white;
+    position: fixed; /* Fixes navbar to the top */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Ensures full viewport width */
+    height: 60px; /* Adjust height as needed */
+    box-sizing: border-box; /* Includes padding in width */
+    margin: 0; /* Remove any default margins */
+    z-index: 1000; /* Ensures navbar stays above other elements */
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+
+.nav-links {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 0 10px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-size: large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 5px 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Style for the active link */
+.nav-links li a.active {
+    color: #fff;
+    /* background-color: white; */
+    /* Blue background when active */
+    font-weight: bold;
+    border-radius: 5px;
+    /* Rounded corners for the active link */
+    transform: scale(1.1);
+    /* Slight scale effect for active link */
+}
+
+/* Hover effect */
+.nav-links li a:hover {
+    background-color: #FA7070;
+    /* Light blue background on hover */
+    transform: scale(1.05);
+    text-decoration: underline;
+}
+
+/* Active link stays highlighted until another link is clicked */
+.nav-links li a.active:focus,
+.nav-links li a.active:hover {
+    background-color: #007bff;
+    /* Keep the active background when hovered */
+    transform: scale(1.1);
+    /* Keep the scale effect active */
+}
+
+.logo-container, .nav-links {
+    margin: 0;
+    padding: 0;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-container img {
+    width: 100px;
+    /* Adjust the logo size */
+    height: 50px;
+    /* Maintains aspect ratio */
+    margin-left: -17px;
+}
+
+.menu-toggle {
+    display: none;
+    height: 100px;
+  }
+  
+  /* Hamburger Icon */
+  .menu-icon {
+    display: none;
+    width: 35px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .menu-icon div {
+    width: 100%;
+    height: 4px;
+    background-color: white;
+    border-radius: 4px;
+    transition: all 0.4s ease-in-out;
+  }
+  
+  /* Media query for screens with a max-width of 1024px */
+  @media only screen and (max-width: 1024px) {
+    .nav-links li a {
+      font-size: medium;
+    }
+  }
+  
+  /* Media query for screens with a max-width of 768px */
+  @media only screen and (max-width: 768px) {
+    .menu-icon {
+      display: flex;
+    }
+  
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      background-color: rgba(51, 51, 51, 0.95);
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: auto;
+      height: auto;
+      min-width: 200px;
+      padding: 15px;
+      border-radius: 8px;
+      z-index: 1000;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.5s ease-in-out;
+    }
+  
+    .nav-links li {
+      margin: 10px 0;
+    }
+  
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+  
+    /* Hamburger to Close (✖) Animation */
+    .menu-toggle:checked + .menu-icon div:nth-child(1) {
+      transform: translateY(10px) rotate(45deg);
+    }
+  
+    .menu-toggle:checked + .menu-icon div:nth-child(2) {
+      opacity: 0;
+    }
+  
+    .menu-toggle:checked + .menu-icon div:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+  
+    /* Slide-in Menu Animation */
+    .menu-toggle:checked + .menu-icon + .nav-links {
+      display: flex;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+  
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    /* Media query for screens with a max-width of 380px */
+    @media only screen and (max-width: 380px) {
+      .logo-container img {
+        height: 30px;
+      }
+  
+      .nav-links {
+        min-width: 150px;
+        padding: 10px;
+      }
+  
+      .nav-links li a {
+        font-size: small;
+      }
+    }
+  }
+  
+
+/* General Heading Styles */
+.Heading {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 114px;
+}
+
+.Heading h2 {
+    font-size: 32px;
+    color: #333;
+    margin-top: -26px;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+}
+
+/* Cart Container */
+#cartContainer {
+    width: 66%;
+    max-width: 600px; /* Prevents it from being too wide */
+    /* height: 325px; */
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 51px;
+    
+}
+
+/* Inner Cart Container */
+.cart-container {
+    width: 100%;
+    max-width: 400px; /* Default width */
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: auto;
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* Cart Item Styling */
+.cart-item {
+    max-width: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px; 
+    margin-top: -20px;
+}
+
+.cart-item img {
+    width: 147px;
+    height: 153px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.cart-item div {
+    flex: 1;
+    text-align: left;
+    padding-left: 15px;
+}
+
+
+/* Button Styling */
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:nth-child(1) {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+button:nth-child(2),
+button:nth-child(3) {
+    background-color: black;
+    color: white;
+}
+
+button:nth-child(4) {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Heading for total price or other sections */
+h3 {
+    margin-top: 15px;
+    color: #222;
+    margin-left: 20px;
+}
+
+p {
+    margin: 4px 0;
+}
+
+.clear-cart-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.clear-cart-button {
+    display: block;
+    width: 100%;
+    max-width: 250px; /* Keeps button from being too wide */
+    padding: 10px;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.clear-cart-button:hover {
+    background-color: black;
+}
+
+/* Responsive Styles */
+@media (max-width: 500px) {
+    .cart-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+/* Tablet view */
+@media (max-width: 1024px) {
+    .cart-item {
+        max-width: 90%; /* More fluid width for better fit */
+        padding: 12px;
+    }
+
+    .cart-item img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .cart-item div {
+        padding-left: 10px;
+    }
+
+    button {
+        font-size: 14px; /* Smaller button text for tablet */
+    }
+
+    #clearCart {
+        top: 100px;  /* Adjusting position for better fit on tablet */
+        right: 20px;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column; /* Stack items vertically */
+        width: 100%; /* Ensure it fills the screen properly */
+        max-width: 90%; /* Prevents overflow */
+        padding: 10px;
+    }
+
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .cart-item div {
+        text-align: center;  /* Center content for better mobile readability */
+        padding-left: 0; /* Remove extra padding on mobile */
+    }
+
+    button {
+        font-size: 12px; /* Smaller button text for mobile */
+        width: 100%;  /* Full width for buttons */
+        margin-top: 5px;
+    }
+
+    #clearCart {
+        top: 20px; /* Positioning fix */
+        right: 10px;
+        width: auto; /* Make button size flexible */
+        min-width: 100px; /* Prevents shrinking too much */
+        padding: 10px;
+        font-size: 12px;
+        text-align: center;  /* Center-align text */
+    }
+}
+
+/* Small Mobile Screens */
+@media (max-width: 480px) {
+    .cart-item {
+        max-width: 100%; /* Ensures full responsiveness */
+        padding: 8px;
+        height: auto;
+    }
+
+    .cart-item img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .cart-item div {
+        padding-left: 0;
+    }
+
+    button {
+        font-size: 12px;
+    }
+
+    #clearCart {
+        top: 80px;
+        right: 18px;
+        width: 80px;
+        padding: 8px;
+        font-size: 10px;
+    }
+}
+
+
+footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;  /* Change to fixed */
+    bottom: 0;        /* Ensure it's at the bottom */
+    left: 0;          /* Align to the left */
+    z-index: 1000;    /* Ensure it's on top of other content */
+}
+
+footer p {
+    margin: 0;  /* Remove default margin */
+}
+
+.social-media {
+    margin-top: 10px;  /* Space between the copyright text and social media links */
+}
+
+.social-media a {
+    text-decoration: none;  /* Remove underline from links */
+    color: white;  /* Set link color to white */
+    margin: 0 10px;  /* Space between the links */
+    font-size: 16px;  /* Adjust font size of social media links */
+    transition: color 0.3s ease;  /* Smooth transition for hover effect */
+}
+
+.social-media a:hover {
+    color: #FA7070;  /* Change color on hover (light red) */
+}

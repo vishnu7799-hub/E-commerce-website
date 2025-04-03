@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="./cart.css">
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <img src="images/Black And Gold Elegant Boutique Logo (1).png" alt="Logo">
+            </div>
+
+            <input type="checkbox" id="menu-toggle" class="menu-toggle" hidden>
+            <label for="menu-toggle" class="menu-icon">
+                <div></div>
+                <div></div>
+                <div></div>
+            </label>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">About</a></li>
+                <li><a href="index.html">Gender</a></li>
+                <li><a href="index.html">Features</a></li>
+                <li><a href="our-products.html">Our Products</a></li>
+                <li><a href="index.html">Testimonials</a></li>
+                <li><a href="index.html">Pricing</a></li>
+                <li><a href="contactus.html">Contact us</a></li>
+                <li><a href="api.html">Product Categories</a></li>
+                <div class="cart">
+                    <li><a href="#Cart">Cart</a></li>
+                </div>
+                <li><a href="apicart.html">APIcart</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Heading Section -->
+    <div class="Heading">
+        <h2>Your Cart</h2>
+    </div>
+
+    <div class="cart-page-container">
+        <div class="cart-container">
+            <section class="cart-items">
+                <div id="cartItemsContainer">
+                    <!-- Cart Items Will Be Rendered Here -->
+                </div>
+    
+                <div class="cart-summary">
+                    <div class="coupon" id="couponContainer" style="display: none;">
+                        <label for="couponCode">Coupon Code:</label>
+                        <input type="text" id="couponCode" placeholder="Enter coupon">
+                        <button id="applyCoupon">Apply</button>
+                    </div>
+                
+                    <h3><strong>Subtotal:</strong> ₹<span id="subtotal">0.00</span></h3>
+                    <h3 id="shippingRow" style="display: none;"><strong>Shipping:</strong> ₹<span id="shippingCost">50.00</span></h3>
+                    <h3><strong>Total:</strong> ₹<span id="totalPrice">0.00</span></h3>
+                
+                    <button id="checkoutButton" style="display: none;">Proceed to Checkout</button>
+                    <button id="clearCart" style="display: none;">Clear Cart</button>
+                </div>
+                
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            displayCart();
+        });
+    
+        function displayCart() {
+            const cartContainer = document.getElementById('cartItemsContainer');
+            const checkoutButton = document.getElementById('checkoutButton');
+            const clearCartButton = document.getElementById('clearCart');
+            const couponContainer = document.getElementById('couponContainer');
+    
+            cartContainer.innerHTML = '';
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let totalAmount = 0;
+    
+            if (cart.length === 0) {
+                cartContainer.innerHTML = "<p style='text-align:center; font-size:20px;'>Your cart is empty.</p>";
+                document.getElementById('subtotal').innerText = "0.00";
+                document.getElementById('totalPrice').innerText = "0.00";
+                checkoutButton.style.display = 'none';
+                clearCartButton.style.display = 'none';
+                couponContainer.style.display = 'none';
+                return;
+            }
+    
+            cart.forEach((product, index) => {
+                totalAmount += product.price * product.quantity;
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-product-images">
+                        <img src="${product.img}" alt="${product.name}" class="main-image">
+                    </div>
+                    <div class="cart-product-details">
+                        <h3>${product.name}</h3>
+                        <p class="cart-price">₹${product.price}</p>
+                        <p class="cart-size">Size: ${product.selectedSize}</p>
+                        <p>Quantity: 
+                            <button onclick="updateQuantity(${index}, -1)">-</button> 
+                            ${product.quantity} 
+                            <button onclick="updateQuantity(${index}, 1)">+</button>
+                        </p>
+                        <p><strong>Subtotal:</strong> ₹<span id="subtotal-${index}">${(product.price * product.quantity).toFixed(2)}</span></p>
+                        <button onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `;
+                cartContainer.appendChild(cartItem);
+            });
+    
+            document.getElementById('subtotal').innerText = totalAmount.toFixed(2);
+            document.getElementById('totalPrice').innerText = totalAmount.toFixed(2); // Removed the +50 (shipping charge)
+    
+            checkoutButton.style.display = 'block';
+            clearCartButton.style.display = 'block';
+            couponContainer.style.display = 'block';
+    
+            if (totalAmount === 0) {
+                document.getElementById('totalPrice').innerText = "0.00";
+            }
+        }
+    
+        function updateQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity += change;
+    
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+    
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+    
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+    
+        document.getElementById("clearCart").addEventListener("click", function () {
+            localStorage.removeItem("cart");
+            displayCart();
+        });
+    </script>
+    
+    
+    
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Contact us: support@mystore.com</p>
+    </footer>
+
+</body>
+
+</html>

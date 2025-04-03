@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApiProducts</title>
+    <link rel="stylesheet" href="api.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <img src="images/Black And Gold Elegant Boutique Logo (1).png" alt="Logo">
+            </div>
+
+            <input type="checkbox" id="menu-toggle" class="menu-toggle" hidden>
+            <label for="menu-toggle" class="menu-icon">
+                <div></div>
+                <div></div>
+                <div></div>
+            </label>
+
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">About</a></li>
+                <li><a href="index.html">Gender</a></li>
+                <li><a href="index.html">Features</a></li>
+                <li><a href="our-products.html">Our Products</a></li>
+                <li><a href="index.html">Testimonials</a></li>
+                <li><a href="index.html">Pricing</a></li>
+                <li><a href="contactus.html">Contact us</a></li>
+                <li><a href="api.html">Product Categories</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="cart.html">APICart <span id="cartCount">(0)</span></a></li>
+            </ul>
+            
+        </nav>
+    </header>
+
+    <div class="content">
+        <div class="filters-container">
+            <div class="filters">
+                <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    <option value="men's clothing">Men's Clothing</option>
+                    <option value="women's clothing">Women's Clothing</option>
+                    <option value="jewelery">Jewelry</option>
+                    <option value="electronics">Electronics</option>
+                </select>
+
+                <select id="sortPrice">
+                    <option value="default">Sort by Price</option>
+                    <option value="low-high">Low to High</option>
+                    <option value="high-low">High to Low</option>
+                </select>
+            </div>
+        </div>
+        <div class="products" id="productContainer"></div>
+    </div>
+    
+    
+    <script>
+        let products = [];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Fetch products from the API
+async function fetchProducts() {
+    try {
+        const res = await fetch('https://fakestoreapi.com/products');
+        products = await res.json();
+        displayProducts(products);
+        updateCartCount(); // Update cart count on page load
+    } catch (error) {
+        console.error("Error fetching products:", error);
+    }
+}
+
+// Display products on the page
+function displayProducts(productsList) {
+    const container = document.getElementById('productContainer');
+    container.innerHTML = "";
+    productsList.forEach(product => {
+        container.innerHTML += `
+            <div class="product-card">
+                <img src="${product.image}" alt="${product.title}" onerror="this.src='images/default.jpg';">
+                <h4>${product.title}</h4>
+                <p>${product.description.slice(0, 50)}...</p>
+                <div class="price">$${product.price.toFixed(2)}</div>
+                <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button> 
+            </div>
+        `;
+    });
+}
+
+// Add product to cart and store it in localStorage
+function addToCart(productId) {
+    const selectedProduct = products.find(p => p.id === productId);
+    
+    let existingItem = cart.find(item => item.id === selectedProduct.id);
+    if (existingItem) {
+        existingItem.quantity += 1; // Increase quantity if already in cart
+    } else {
+        selectedProduct.quantity = 1;
+        cart.push(selectedProduct);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart)); // Store updated cart
+    alert(`${selectedProduct.title} added to cart!`);
+    updateCartCount(); // Update the cart count in navbar
+
+    // Redirect to cart page
+    window.location.href = "apicart.html";
+}
+
+// Update the cart item count in navbar
+function updateCartCount() {
+    const cartCountElement = document.getElementById('cartCount');
+    if (cartCountElement) {
+        cartCountElement.innerText = `(${cart.length})`;
+    }
+}
+
+
+function filterProducts() {
+    const selectedCategory = document.getElementById('categoryFilter').value;
+    const sortType = document.getElementById('sortPrice').value;
+    let filteredProducts = products.filter(p => selectedCategory === 'all' || p.category === selectedCategory);
+
+    filteredProducts.sort((a, b) => (sortType === "low-high") ? a.price - b.price : (sortType === "high-low") ? b.price - a.price : 0);
+    
+    displayProducts(filteredProducts);
+}
+
+
+document.getElementById('categoryFilter').addEventListener('change', filterProducts);
+document.getElementById('sortPrice').addEventListener('change', filterProducts);
+
+
+fetchProducts();
+
+
+    
+    </script>
+    
+    
+
+    <footer>
+        <p>&copy; 2025 H&M store. All rights reserved.</p>
+        <div class="social-media">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+        </div>
+    </footer>
+</body>
+
+</html>

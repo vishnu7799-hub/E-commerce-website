@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - H&M mens regular t shirt</title>
+    <link rel="stylesheet" href="details.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <img src="images/Black And Gold Elegant Boutique Logo (1).png">
+            </div>
+
+            <input type="checkbox" id="menu-toggle" class="menu-toggle" hidden>
+            <label for="menu-toggle" class="menu-icon">
+                <div></div>
+                <div></div>
+                <div></div>
+            </label>
+
+
+            <ul class="nav-links">
+                <li><a href="index.html#hero">Home</a></li>
+                <li><a href="index.html">About</a></li>
+                <li><a href="index.html">Features</a></li>
+                <li><a href="our-products.html">Our Products</a></li>
+                <li><a href="index.html">Testimonials</a></li>
+                <li><a href="index.html">Pricing</a></li>
+                <li><a href="contactus.html">Contact</a></li>
+                <li><a href="api.html">Product Categories</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="cart.html">APICart <span id="cartCount">(0)</span></a></li>
+
+
+                <li><a href="#Cart">Cart</a></li>
+
+
+
+
+            </ul>
+        </nav>
+    </header>
+
+    <div id="search-bar-container">
+        <input type="text" id="search-bar" placeholder="Search for products...">
+        <button id="search-button">Search</button>
+    </div>
+
+
+    <section id="product-detail">
+        <div class="product-detail-container">
+            <!-- Product Image and Small Images -->
+            <div class="product-images">
+                <div class="small-images" id="small-images">
+                    <!-- Small image cards will be dynamically added here -->
+                </div>
+                <img src="" alt="Product Image" class="main-image" id="main-image">
+            </div>
+    
+            <!-- Product Details -->
+            <div class="product-details">
+                <h1 id="product-name"></h1>
+                <p class="price">Price: <span id="product-price"></span></p>
+                <p class="shirt-type">Category: <span id="product-category"></span></p>
+                <p class="short-description" id="product-description"></p>
+    
+                <!-- Size Selection -->
+                <div class="size-selector">
+                    <label for="size">Size:</label>
+                    <select id="size">
+                        <option value="S">Small</option>
+                        <option value="M">Medium</option>
+                        <option value="L">Large</option>
+                        <option value="XL">Extra Large</option>
+                    </select>
+                </div>
+    
+                <!-- Quantity Selection -->
+                <div class="quantity">
+                    <label for="quantity">Select Quantity:</label>
+                    <input id="quantity" type="number" min="1" max="100" step="1" value="1">
+                </div>
+    
+                <!-- Add to Cart and Buy Now Buttons -->
+                <div class="actions">
+                    <button id="add-to-cart">Add to Cart</button>
+                    <button class="buy-now">Buy Now</button>
+                </div>
+    
+                <!-- Like Icon -->
+                <div class="like-icon">
+                    <button id="like-button">Like ❤️</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Product Data with Small Images for Each Product
+        const products = {
+            1: { 
+                name: "H&M Men's Regular T-Shirt", 
+                price: 100, 
+                category: "T-Shirt", 
+                description: "Comfortable and stylish t-shirt for everyday wear.", 
+                img: "images/product-1.jpg",
+                smallImages: ["images/product-1.jpg", "images/gallery-4.jpg", "images/gallery-3.jpg", "images/gallery-2.jpg"]
+            },
+            2: { 
+                name: "HRX Running Shoes", 
+                price: 120, 
+                category: "Shoes", 
+                description: "Durable and lightweight shoes for running.", 
+                img: "images/product-2.jpg",
+                smallImages: ["images/product-2.jpg", "images/gallery-1.jpg", "images/gallery-3.jpg", "images/gallery-4.jpg"]
+            },
+            3: { 
+                name: "FOSSIL Black Dial Watch", 
+                price: 150, 
+                category: "Watch", 
+                description: "Solid Men Black Dial Regular watch for Men.", 
+                img: "images/product-8.jpg",
+                smallImages: ["images/product-8.jpg", "images/gallery-2.jpg", "images/gallery-4.jpg", "images/gallery-3.jpg"]
+            },
+            4: { 
+                name: "MVMT Trackpant", 
+                price: 120, 
+                category: "Trackpant", 
+                description: "A perfect sportswear for your body.", 
+                img: "images/product-3.jpg",
+                smallImages: ["images/product-3.jpg", "images/gallery-1.jpg", "images/gallery-2.jpg", "images/gallery-4.jpg"]
+            },
+            5: { 
+                name: "PUMA Polo T-shirt", 
+                price: 120, 
+                category: "T-Shirt", 
+                description: "Feel the brand and enjoy the comfort.", 
+                img: "images/product-4.jpg",
+                smallImages: ["images/product-4.jpg", "images/gallery-3.jpg", "images/gallery-1.jpg", "images/gallery-2.jpg"]
+            }
+        };
+    
+        // Get product ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get("id"), 10);
+    
+        // Check if product exists
+        if (products[productId]) {
+            const product = products[productId];
+    
+            // Update main image
+            document.getElementById("main-image").src = product.img;
+    
+            // Update product details
+            document.getElementById("product-name").innerText = product.name;
+            document.getElementById("product-price").innerText = "₹" + product.price;
+            document.getElementById("product-category").innerText = product.category;
+            document.getElementById("product-description").innerText = product.description;
+    
+            // Update small images dynamically
+            const smallImagesContainer = document.getElementById("small-images");
+            smallImagesContainer.innerHTML = ""; // Clear previous images
+    
+            product.smallImages.forEach(imgSrc => {
+                const card = document.createElement("div");
+                card.classList.add("small-card");
+    
+                const imgElement = document.createElement("img");
+                imgElement.src = imgSrc;
+                imgElement.alt = product.name;
+                imgElement.onclick = function () {
+                    document.getElementById("main-image").src = imgSrc; // Change main image on click
+                };
+    
+                card.appendChild(imgElement);
+                smallImagesContainer.appendChild(card);
+            });
+    
+            // Add to Cart Functionality
+            document.getElementById("add-to-cart").addEventListener("click", () => {
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                const selectedSize = document.getElementById("size").value;
+                const quantity = parseInt(document.getElementById("quantity").value, 10) || 1;
+    
+                // Check if product is already in cart with the same size
+                let existingProduct = cart.find(item => item.name === product.name && item.selectedSize === selectedSize);
+                if (existingProduct) {
+                    existingProduct.quantity += quantity; // Increase quantity
+                } else {
+                    cart.push({ ...product, selectedSize, quantity });
+                }
+    
+                localStorage.setItem("cart", JSON.stringify(cart));
+    
+                alert("Item added to cart!");
+                window.location.href = "cart.html";
+            });
+    
+            // Like Button Functionality
+            document.getElementById("like-button").addEventListener("click", function () {
+                this.classList.toggle("liked");
+                this.innerText = this.classList.contains("liked") ? "Liked ❤️" : "Like ❤️";
+            });
+    
+        } else {
+            document.getElementById("product-detail").innerHTML = "<p>Product not found.</p>";
+        }
+    </script>
+    
+    
+    <footer>
+        <p>&copy; 2025 H&m store. All rights reserved.</p>
+        <div class="social-media">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+        </div>
+    </footer>
+
+
+
+</body>
+
+</html>

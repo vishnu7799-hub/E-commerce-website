@@ -1,0 +1,519 @@
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: black;
+  color: white;
+  position: relative;
+}
+
+.nav-links {
+  display: flex;
+  gap: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 10px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-size: large;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  padding: 5px 10px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Style for the active link */
+.nav-links li a.active {
+  color: #fff;
+  background-color: white;
+  /* Blue background when active */
+  font-weight: bold;
+  border-radius: 5px;
+  /* Rounded corners for the active link */
+  transform: scale(1.1);
+  /* Slight scale effect for active link */
+}
+
+/* Hover effect */
+.nav-links li a:hover {
+  background-color: #FA7070;
+  /* Light blue background on hover */
+  transform: scale(1.05);
+  /* Scale up the link on hover */
+  text-decoration: underline;
+}
+
+/* Active link stays highlighted until another link is clicked */
+
+
+
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-container img {
+  width: 100px;
+  /* Adjust the logo size */
+  height: 50px;
+  /* Maintains aspect ratio */
+  margin-left: -17px;
+}
+
+.menu-toggle {
+  display: none;
+  height: 100px;
+}
+
+/* Hamburger Icon */
+.menu-icon {
+  display: none;
+  width: 35px;
+  height: 25px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menu-icon div {
+  width: 100%;
+  height: 4px;
+  background-color: white;
+  border-radius: 4px;
+  transition: all 0.4s ease-in-out;
+}
+
+/* Media query for screens with a max-width of 1024px */
+@media only screen and (max-width: 1024px) {
+  .nav-links li a {
+    font-size: medium;
+  }
+}
+
+/* Media query for screens with a max-width of 768px */
+@media only screen and (max-width: 768px) {
+  .menu-icon {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(51, 51, 51, 0.8);
+    position: absolute;
+    top: -185px;
+    left: 0;
+    width: 100%;
+    height: 143vh;
+    justify-content: center;
+    padding: 20px 0;
+    z-index: 1000;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .nav-links li {
+    margin: 15px 0;
+  }
+
+  /* Hamburger to Close (✖) Animation */
+  .menu-toggle:checked+.menu-icon div:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+  }
+
+  .menu-toggle:checked+.menu-icon div:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle:checked+.menu-icon div:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+
+  /* Slide-in Menu Animation */
+  .menu-toggle:checked+.menu-icon+.nav-links {
+    display: flex;
+    animation: slideIn 0.5s ease-in-out;
+  }
+
+  /* Menu slide-in animation */
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      /* Starts from the right */
+    }
+
+    to {
+      transform: translateX(0);
+      /* Ends in the original position */
+    }
+  }
+
+  /* Individual nav item animation */
+  .nav-links li {
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+    animation-delay: 0.2s;
+  }
+
+  .nav-links li:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+
+  .nav-links li:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+
+  .nav-links li:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+
+  .nav-links li:nth-child(4) {
+    animation-delay: 0.8s;
+  }
+
+  .nav-links li:nth-child(5) {
+    animation-delay: 1s;
+  }
+
+  .nav-links li:nth-child(6) {
+    animation-delay: 1.2s;
+  }
+
+  .nav-links li:nth-child(7) {
+    animation-delay: 1.4s;
+  }
+
+  .nav-links li:nth-child(8) {
+    animation-delay: 1.6s;
+  }
+
+  /* Fade-in animation for nav items */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Media query for screens with a max-width of 380px */
+  @media only screen and (max-width: 380px) {
+    .logo-container img {
+      height: 30px;
+    }
+
+    .nav-links li a {
+      font-size: small;
+    }
+
+    .nav-links {
+      padding: 10px 0;
+    }
+  }
+
+}
+
+#services {
+  text-align: center;
+  padding: 20px;
+}
+
+.service-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 100px;
+  /* Space between products */
+}
+
+.service {
+  width: 220px;
+  /* Ensures each box has the same width */
+}
+
+.product-box {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 10px;
+  height: 350px;
+  /* Fixed height for consistent box size */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  width: 250px;
+}
+
+/* Hover Effect */
+.product-box:hover {
+  transform: scale(1);
+  /* Slightly enlarges the box */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  /* Adds a deeper shadow */
+  background: #ececec;
+  /* Light grey background on hover */
+}
+
+.service img {
+  width: 70%;
+  /* Ensure the image fits within the box */
+  height: 200px;
+  /* Fixed height for the image */
+  object-fit: cover;
+  /* Ensures images fit without distortion */
+  border-radius: 10px 10px 0 0;
+  transition: transform 0.3s ease;
+}
+
+/* Hover Effect on Image */
+/*  */
+
+.details {
+  padding: 10px;
+  background: #f9f9f9;
+  height: 120px;
+  /* Fixed height for the details */
+  overflow: hidden;
+  /* Prevent text overflow */
+}
+
+.details h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.details p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+  /* Ensures text is spaced out for readability */
+}
+
+
+/* Responsive Design */
+/* Media Queries for Mobile Devices */
+
+/* For mobile devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .service-container {
+    flex-direction: column;
+    /* Stack items vertically for mobile */
+    align-items: center;
+    /* Center the items */
+    gap: 20px;
+    /* Add space between items */
+  }
+
+  .service {
+    width: 90%;
+    /* Full width for mobile */
+    margin-bottom: 20px;
+    /* Space between service boxes */
+    display: flex;
+    /* Make service items flexible */
+    flex-direction: column;
+    /* Keep content vertically stacked inside the service box */
+    align-items: center;
+    /* Center items within each box */
+  }
+
+  .service img {
+    width: 100%;
+    /* Ensure the image takes full width of the container */
+    height: auto;
+    /* Maintain aspect ratio */
+    object-fit: cover;
+    /* Ensure image properly fits inside the container */
+    border-radius: 10px;
+    /* Optional: add rounded corners for images */
+  }
+
+  #services h2 {
+    font-size: 1.2rem;
+    /* Adjust font size for smaller screens */
+    margin-bottom: 15px;
+    /* Add margin below the heading */
+  }
+
+  .service .details {
+    padding-top: 10px;
+    /* Padding for the details section */
+    text-align: center;
+    /* Center align text */
+    width: 100%;
+    /* Ensure details section takes full width */
+  }
+
+  .service .details h3 {
+    font-size: 1.1rem;
+    /* Adjust heading font size */
+    margin-bottom: 10px;
+    /* Space below the heading */
+  }
+
+  .service .details p {
+    font-size: 0.9rem;
+    /* Adjust paragraph font size */
+    line-height: 1.4;
+    /* Improve readability */
+  }
+}
+
+/* Media Queries for Tablet Devices */
+
+/* For mobile devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .service-container {
+    flex-direction: column;
+    /* Stack items vertically for mobile */
+    align-items: center;
+    /* Center the items */
+    gap: 20px;
+    /* Add space between items */
+  }
+
+  .service {
+    width: 90%;
+    /* Full width for mobile */
+    margin-bottom: 20px;
+    /* Space between service boxes */
+    display: flex;
+    /* Make service items flexible */
+    flex-direction: column;
+    /* Keep content vertically stacked inside the service box */
+    align-items: center;
+    /* Center the items within each service box */
+  }
+
+  .product-box {
+    display: flex;
+    /* Make sure product box is flexible */
+    flex-direction: column;
+    /* Stack elements vertically */
+    align-items: center;
+    /* Center the content inside the product box */
+    justify-content: center;
+    /* Ensure the content is vertically centered */
+    text-align: center;
+    /* Center align text */
+  }
+
+  .service img {
+    width: 60%;
+    /* Ensure the image takes full width of the container */
+    height: auto;
+    /* Maintain aspect ratio */
+    object-fit: cover;
+    /* Ensure image properly fits inside the container */
+    border-radius: 10px;
+    /* Optional: add rounded corners for images */
+    margin-bottom: 10px;
+    /* Add some margin below the image */
+  }
+
+  #services h2 {
+    font-size: 1.2rem;
+    /* Adjust font size for smaller screens */
+    margin-bottom: 15px;
+    /* Add margin below the heading */
+  }
+
+  .service .details {
+    padding-top: 10px;
+    /* Padding for the details section */
+    text-align: center;
+    /* Center align text */
+    width: 100%;
+    /* Ensure details section takes full width */
+  }
+
+  .service .details h3 {
+    font-size: 1.1rem;
+    /* Adjust heading font size */
+    margin-bottom: 10px;
+    /* Space below the heading */
+  }
+
+  .service .details p {
+    font-size: 0.9rem;
+    /* Adjust paragraph font size */
+    line-height: 1.4;
+    /* Improve readability */
+  }
+}
+
+
+
+
+
+
+
+footer {
+  background-color: #333;
+  /* Dark background color for the footer */
+  color: white;
+  /* White text color */
+  text-align: center;
+  /* Center the text */
+  padding: 20px;
+  /* Padding around the footer */
+  font-size: 14px;
+  /* Adjust font size */
+  margin-top: auto;
+}
+
+footer p {
+  margin: 0;
+  /* Remove default margin from the paragraph */
+}
+
+.social-media {
+  margin-top: 10px;
+  /* Space between the copyright text and the social media links */
+}
+
+.social-media a {
+  text-decoration: none;
+  /* Remove underline from links */
+  color: white;
+  /* Set link color to white */
+  margin: 0 10px;
+  /* Space between the links */
+  font-size: 16px;
+  /* Adjust font size of social media links */
+  transition: color 0.3s ease;
+  /* Smooth transition for hover effect */
+}
+
+.social-media a:hover {
+  color: #F95454;
+  /* Change color on hover (light red) */
+}
